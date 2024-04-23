@@ -14,6 +14,8 @@ public class LoadData {
         try {
             BufferedImage img = ImageIO.read(new File("minesweeper.png"));
             listImage.put("title", img.getSubimage(0,84,114,25));
+            listImage.put("nouse", img.getSubimage(0,39,16,16));
+            listImage.put("smile", img.getSubimage(0,55,28,26));
         } catch (IOException e) {
             e.printStackTrace();
         }

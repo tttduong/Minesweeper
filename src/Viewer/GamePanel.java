@@ -1,29 +1,69 @@
 package Viewer;
 
+import Control.World;
+
 import java.awt.*;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import static java.awt.AWTEventMulticaster.add;
 
 public class GamePanel extends JPanel{
-    private JPanel p1,p2;
-    private JButton[][] arrayButton;
-    public GamePanel (int w, int h, int boom){
-        arrayButton = new JButton[w][h];
+    private PanelNotification p1;
+    private PanelPlayer p2;
 
-        add(p1 = new JPanel(new BorderLayout()));
-        add(p2 = new JPanel(new GridLayout(w,h)));
+    private World world;
+    private int w;
+    private int h;
 
-        for (int i =0 ; i < arrayButton.length; i++){
-            for (int j =0; j< arrayButton.length; j++){
-                p2.add(arrayButton[i][j] = new JButton());
-            }
-        }
+    public GamePanel (int w, int h, int boom, GameFrame gameFrame){
+        this.w = w;
+        this.h = h ;
+        this.gameFrame = gameFrame ;
 
+        world = new World(w,h,boom);
+        setLayout(new BorderLayout(10,10));
+        add(p1 = new PanelNotification(this), BorderLayout.NORTH);
+        add(p2 = new PanelPlayer(this), BorderLayout.CENTER);
 
 
     }
+
+    public GameFrame getGameFrame() {
+        return gameFrame;
+    }
+
+    public void setGameFrame(GameFrame gameFrame) {
+        this.gameFrame = gameFrame;
+    }
+
+    private GameFrame gameFrame;
+    private JButton[][] arrayButton;
+
+    public int getH() {
+        return h;
+    }
+
+    public void setH(int h) {
+        this.h = h;
+    }
+
+    public int getW() {
+        return w;
+    }
+
+    public void setW(int w) {
+        this.w = w;
+    }
+
+    public World getWorld() {
+        return world;
+    }
+
+    public void setWorld(World world) {
+        this.world = world;
+    }
+
+
 
 
 }
