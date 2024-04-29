@@ -16,10 +16,14 @@ public class GamePanel extends JPanel implements MouseListener {
     private World world;
     private int w;
     private int h;
+    private int boom;
+    private GameFrame gameFrame;
+//    private JButton[][] arrayButton;
 
     public GamePanel (int w, int h, int boom, GameFrame gameFrame){
         this.w = w;
         this.h = h ;
+        this.boom = boom;
         this.gameFrame = gameFrame ;
 
         world = new World(w,h,boom);
@@ -29,18 +33,6 @@ public class GamePanel extends JPanel implements MouseListener {
 
 
     }
-
-    public GameFrame getGameFrame() {
-        return gameFrame;
-    }
-
-    public void setGameFrame(GameFrame gameFrame) {
-        this.gameFrame = gameFrame;
-    }
-
-    private GameFrame gameFrame;
-    private JButton[][] arrayButton;
-
     public int getH() {
         return h;
     }
@@ -65,9 +57,30 @@ public class GamePanel extends JPanel implements MouseListener {
         this.world = world;
     }
 
+    public GameFrame getGameFrame() {
+        return gameFrame;
+    }
 
+    public void setGameFrame(GameFrame gameFrame) {
+        this.gameFrame = gameFrame;
+    }
     @Override
     public void mouseClicked(MouseEvent e) {
+        ButtonPlay[][] arrayButton = p2.getArrayButton();
+        for (int i = 0; i < arrayButton.length ; i++){
+            for(int j =0; j < arrayButton[i].length ; j++){
+                if (e.getButton() == 1 && e.getSource() == arrayButton[i][j]){
+                    if(!world.open(i,j)) {
+                        int option = JOptionPane.showConfirmDialog(this, "Do you want to play again?", "Notification", JOptionPane.YES_NO_OPTION);
+                        if (option == JOptionPane.YES_OPTION){
+                            new GamePanel(w,h,boom,gameFrame);
+                        }else{
+                             gameFrame.setVisible(false);
+                        }
+                    }
+                }
+            }
+        }
 
     }
 

@@ -27,6 +27,18 @@ public class LoadData {
             listImage.put("8", img.getSubimage(105,0,13,23));
             listImage.put("9", img.getSubimage(118,0,13,23));
 
+            listImage.put("b0", img.getSubimage(0,23,16,16));
+            listImage.put("b1", img.getSubimage(16,23,16,16));
+            listImage.put("b2", img.getSubimage(32,23,16,16));
+            listImage.put("b3", img.getSubimage(48,23,16,16));
+            listImage.put("b4", img.getSubimage(64,23,16,16));
+            listImage.put("b5", img.getSubimage(80,23,16,16));
+            listImage.put("b6", img.getSubimage(96,23,16,16));
+            listImage.put("b7", img.getSubimage(112,23,16,16));
+            listImage.put("b8", img.getSubimage(128,23,16,16));
+
+            listImage.put("boom", img.getSubimage(32,39,16,16));
+
         } catch (IOException e) {
             e.printStackTrace();
         }

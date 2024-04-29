@@ -1,5 +1,6 @@
 package Control;
 
+import View.ButtonPlay;
 import View.ButtonSmile;
 import View.LabelNumber;
 
@@ -7,7 +8,7 @@ import javax.swing.*;
 import java.util.Random;
 
 public class World {
-    private JButton[][] arrayButton;
+    private ButtonPlay[][] arrayButton;
     private int[][] arrayMin;
     private Random rd;
     private ButtonSmile buttonSmile;
@@ -16,7 +17,7 @@ public class World {
 
     private LabelNumber label_time, label_boom;
     public World(int w, int h, int boom) {
-        arrayButton = new JButton[w][h];
+        arrayButton = new ButtonPlay[w][h];
         arrayMin = new int[w][h];
         rd = new Random();
 
@@ -33,6 +34,18 @@ public class World {
 
     }
 
+    public boolean open(int i, int j){
+        int number = arrayMin[i][j];
+//        System.out.println(number);
+        if(number != -1) {
+            arrayButton[i][j].setNumber(number);
+            arrayButton[i][j].repaint();
+            return true;
+        }else{
+            arrayButton[i][j].repaint();
+            return false;
+        }
+    }
     public void fillNumber(){
         for(int i = 0; i< arrayMin.length; i++){
             for (int j =0; j < arrayMin[i].length; j++){
@@ -108,11 +121,11 @@ public class World {
         this.buttonSmile = buttonSmile;
     }
 
-    public JButton[][] getArrayButton() {
+    public ButtonPlay[][] getArrayButton() {
         return arrayButton;
     }
 
-    public void setArrayButton(JButton[][] arrayButton) {
+    public void setArrayButton(ButtonPlay[][] arrayButton) {
         this.arrayButton = arrayButton;
     }
 
