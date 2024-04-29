@@ -1,12 +1,12 @@
-package Viewer;
+package View;
 
 import Model.LoadData;
 
 import javax.swing.*;
 
 public class GameFrame extends JFrame {
-    LoadData loadData = new LoadData();
-GamePanel gamePanel ;
+    private LoadData loadData ;
+    private GamePanel gamePanel ;
 
     public LoadData getLoadData() {
         return loadData;

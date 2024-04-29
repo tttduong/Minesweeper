@@ -1,13 +1,15 @@
-package Viewer;
+package View;
 
 import Control.World;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.*;
 
 import static java.awt.AWTEventMulticaster.add;
 
-public class GamePanel extends JPanel{
+public class GamePanel extends JPanel implements MouseListener {
     private PanelNotification p1;
     private PanelPlayer p2;
 
@@ -64,6 +66,28 @@ public class GamePanel extends JPanel{
     }
 
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
 
+    }
 
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }
