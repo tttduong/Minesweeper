@@ -33,6 +33,7 @@ public class GamePanel extends JPanel implements MouseListener {
 
 
     }
+
     public int getH() {
         return h;
     }
@@ -67,18 +68,32 @@ public class GamePanel extends JPanel implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         ButtonPlay[][] arrayButton = p2.getArrayButton();
+
+
         for (int i = 0; i < arrayButton.length ; i++){
             for(int j =0; j < arrayButton[i].length ; j++){
+
                 if (e.getButton() == 1 && e.getSource() == arrayButton[i][j]){
-                    if(!world.open(i,j)) {
-                        int option = JOptionPane.showConfirmDialog(this, "Do you want to play again?", "Notification", JOptionPane.YES_NO_OPTION);
-                        if (option == JOptionPane.YES_OPTION){
-                            gameFrame.setVisible(false);
-                            new GameFrame(w,h,boom);
-                        }else{
-                             gameFrame.setVisible(false);
+
+                        if (!world.open(i, j)) {                  //nếu open = false. thì hỏi chơi lại
+                            if(world.isComplete()) {
+                                int option = JOptionPane.showConfirmDialog(this, "You lost. Play again?", "Notification", JOptionPane.YES_NO_OPTION);
+                                if (option == JOptionPane.YES_OPTION) {
+                                    gameFrame.setVisible(false);
+                                    new GameFrame(w, h, boom);
+                                } else {                               // nếu không chọn chơi lại thì arrayBoolean = full true ->
+                                    world.fullTrue();
+                                }
+                            }else if(world.isEnd()){
+                                int option = JOptionPane.showConfirmDialog(this, "You Win. Play again?", "Notification", JOptionPane.YES_NO_OPTION);
+                                if (option == JOptionPane.YES_OPTION) {
+                                    gameFrame.setVisible(false);
+                                    new GameFrame(w, h, boom);
+                                }
+
+                            }
                         }
-                    }
+
                 }
             }
         }
