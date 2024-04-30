@@ -73,7 +73,8 @@ public class GamePanel extends JPanel implements MouseListener {
                     if(!world.open(i,j)) {
                         int option = JOptionPane.showConfirmDialog(this, "Do you want to play again?", "Notification", JOptionPane.YES_NO_OPTION);
                         if (option == JOptionPane.YES_OPTION){
-                            new GamePanel(w,h,boom,gameFrame);
+                            gameFrame.setVisible(false);
+                            new GameFrame(w,h,boom);
                         }else{
                              gameFrame.setVisible(false);
                         }

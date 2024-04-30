@@ -16,10 +16,10 @@ public class GameFrame extends JFrame {
         this.loadData = loadData;
     }
 
-    public GameFrame (){
+    public GameFrame (int w,int h,int boom){
         loadData = new LoadData();
 
-        add(gamePanel= new GamePanel(9,9,10, this));
+        add(gamePanel= new GamePanel(w,h,boom, this));
         setResizable(false);
         setIconImage(loadData.getListImage().get("title"));
         pack();
@@ -27,5 +27,14 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
+
+//    public static void main(String[] args) {
+////        try{
+////            UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+////        }catch(Exception ex){
+////            ex.printStackTrace();
+////        }
+//        new GameFrame(9, 9, 10);
+//    }
 
 }

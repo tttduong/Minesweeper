@@ -8,7 +8,7 @@ public class Main {
 //        }catch(Exception ex){
 //            ex.printStackTrace();
 //        }
-        new GameFrame();
+        new GameFrame(9,9,10);
 
 //        int[][] array;
 //        array = new int[5][3];
