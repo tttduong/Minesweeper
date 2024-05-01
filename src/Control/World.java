@@ -8,22 +8,12 @@ import java.util.Random;
 public class World {
     private ButtonPlay[][] arrayButton;
     private int[][] arrayMin;
-
-    public boolean getArrayBoolean(int i, int j ) {
-        return arrayBoolean[i][j];
-    }
-
-
-
     private boolean[][] arrayBoolean;
-    private boolean isComplete;         //true khi game thua
-    private boolean isEnd;              //true khi game thắng
+    private boolean isComplete;         //true khi game kết thúc (thắng hoặc thua)
     private Random rd;
     private ButtonSmile buttonSmile;
     private LabelNumber label_time, label_boom;
     private int boom;
-//    private boolean isComplete;
-
 
     public World(int w, int h, int boom) {
         this.boom = boom;
@@ -47,57 +37,65 @@ public class World {
 
     public boolean open(int i, int j){
 
-        if(checkWin()){
-            isEnd = true;
-
-            fullTrue();
-
-            return false;
-        }
-        if(!isComplete && !isEnd) {
-
             if (!arrayBoolean[i][j]) {                       //nếu arrayBoolean = false - ô chưa mở thì mở arrayBoolean
-                if (arrayMin[i][j] == 0) {
-                    arrayBoolean[i][j] = true;                //mở arrayBoolean xong thì đổi arrayBoolean thành true
-                    arrayButton[i][j].setNumber(0);
-                    arrayButton[i][j].repaint();
 
-                    for (int l = i - 1; l <= i + 1; l++) {
-                        for (int k = j - 1; k <= j + 1; k++) {
-                            if (l >= 0 && l <= arrayMin.length - 1 && k >= 0 && k <= arrayMin[i].length - 1) {
-                                if (!arrayBoolean[l][k]) {
-                                    open(l, k);
+                switch (arrayMin[i][j]) {
+                    case 0:
+                        arrayBoolean[i][j] = true;                //mở arrayBoolean xong thì đổi arrayBoolean thành true
+                        arrayButton[i][j].setNumber(0);
+                        arrayButton[i][j].repaint();
 
+                        for (int l = i - 1; l <= i + 1; l++) {
+                            for (int k = j - 1; k <= j + 1; k++) {
+                                if (l >= 0 && l <= arrayMin.length - 1 && k >= 0 && k <= arrayMin[i].length - 1) {
+                                    if (!arrayBoolean[l][k]) {
+                                        open(l, k);
+                                    }
                                 }
                             }
                         }
-                    }
+
+                        if (checkWin()) {
+                            isComplete = true;                      // true khi Win
+
+                            fullTrue();
+
+                            return false;                           //end game
+                        } else {
+                            return true;                           //chơi tiếp
+                        }
+                    case -1:
+                        isComplete = false;
+
+                        return false;
+                    default:
+                        arrayBoolean[i][j] = true;
 
 
-                } else {
-                    arrayBoolean[i][j] = true;
-                    int number = arrayMin[i][j];
-                    if (number != -1) {                         //mở ra nếu ko phải boom thì mở ra số (return open về true),
+                        int number = arrayMin[i][j];
                         arrayButton[i][j].setNumber(number);
                         arrayButton[i][j].repaint();
+                        if (checkWin()) {
+                            isComplete = true;                      // true khi Win
 
-                        return true;
+                            fullTrue();
 
-                    }
+                            return false;                           //end game
+                        } else {
+                            return true;                           //chơi tiếp
+                        }
                 }
-            }
 
-            if (arrayMin[i][j] == -1) {
-                isComplete = false;
-                return false;
-            } else {                                         //nếu ô đã mở thỉ return open về false (ko mở đc)
-//            arrayButton[i][j].repaint();
-                return true;
-            }
-        }else{
-            return false;
+            }else {
+                if(isComplete == false) { //chưa win
+                    return true;
+                }else{                     //win rồi
+                    return false;
+                }
+
         }
     }
+
     public boolean checkWin(){
         int count =0;
         for (int i =0; i <arrayBoolean.length; i++){
@@ -122,12 +120,6 @@ public class World {
         }
     }
 
-//    public void fullFalse(){
-//        for(int i=0; i< arrayBoolean.length; i++){
-//            for(int j = 0; j<arrayBoolean[i].length; j++){
-//            }
-//        }
-//    }
     public void fillNumber(){
         for(int i = 0; i< arrayMin.length; i++){
             for (int j =0; j < arrayMin[i].length; j++){
@@ -219,11 +211,4 @@ public class World {
         isComplete = complete;
     }
 
-    public boolean isEnd() {
-        return isEnd;
-    }
-
-    public void setEnd(boolean end) {
-        isEnd = end;
-    }
 }
