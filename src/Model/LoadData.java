@@ -37,7 +37,13 @@ public class LoadData {
             listImage.put("b7", img.getSubimage(112,23,16,16));
             listImage.put("b8", img.getSubimage(128,23,16,16));
 
-            listImage.put("boom", img.getSubimage(32,39,16,16));
+            listImage.put("boomRed", img.getSubimage(32,39,16,16));
+            listImage.put("boomX", img.getSubimage(48,39,16,16));
+            listImage.put("boom", img.getSubimage(64,39,16,16));
+
+            listImage.put("flag", img.getSubimage(16,39,16,16));
+
+
 
         } catch (IOException e) {
             e.printStackTrace();

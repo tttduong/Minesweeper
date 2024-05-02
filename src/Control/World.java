@@ -9,6 +9,7 @@ public class World {
     private ButtonPlay[][] arrayButton;
     private int[][] arrayMin;
     private boolean[][] arrayBoolean;
+    private boolean[][] arrayFlag;
     private boolean isComplete;         //true khi game kết thúc (thắng hoặc thua)
     private Random rd;
     private ButtonSmile buttonSmile;
@@ -20,6 +21,7 @@ public class World {
         arrayButton = new ButtonPlay[w][h];
         arrayMin = new int[w][h];
         arrayBoolean = new boolean[w][h];
+        arrayFlag = new boolean[w][h];
 
         rd = new Random();
 
@@ -65,7 +67,18 @@ public class World {
                             return true;                           //chơi tiếp
                         }
                     case -1:
+                        arrayButton[i][j].setNumber(9);
+                        arrayButton[i][j].repaint();
                         isComplete = false;
+
+                        for(int i2=0; i2< arrayButton.length; i2++){
+                            for(int j2 = 0; j2<arrayButton[i2].length; j2++){
+                                if(arrayMin[i2][j2] == -1 && i2 != i && j2 != j){
+                                    arrayButton[i2][j2].setNumber(-1);
+                                    arrayButton[i2][j2].repaint();
+                                }
+                            }
+                        }
 
                         return false;
                     default:
@@ -95,7 +108,20 @@ public class World {
 
         }
     }
+public void flagUp(int i, int j){
+        if(!arrayBoolean[i][j]){
+            if(arrayFlag[i][j]) {
+                arrayFlag[i][j] = false;
+                arrayButton[i][j].setNumber(-2);
+                arrayButton[i][j].repaint();
+            }else {
+                arrayFlag[i][j] = true;
+                arrayButton[i][j].setNumber(11);
+                arrayButton[i][j].repaint();
 
+            }
+        }
+}
     public boolean checkWin(){
         int count =0;
         for (int i =0; i <arrayBoolean.length; i++){

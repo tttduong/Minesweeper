@@ -6,6 +6,9 @@ import java.awt.*;
 public class ButtonPlay extends JButton {
     private PanelPlayer player_panel;
     private int number;
+
+
+
     public ButtonPlay(PanelPlayer player_panel){
         number = -2;
         this.player_panel =player_panel;
@@ -15,7 +18,9 @@ public class ButtonPlay extends JButton {
     public void setNumber(int number){
         this.number = number;
     }
-
+    public int getNumber() {
+        return number;
+    }
     @Override
     public void paint(Graphics g){
         switch (number){
@@ -64,6 +69,19 @@ public class ButtonPlay extends JButton {
                 break;
             case 8:
                 g.drawImage(player_panel.getGame().getGameFrame().getLoadData().getListImage().get("b8"),
+                        0,0,getPreferredSize().width,getPreferredSize().height,null);
+                break;
+            case 9:
+                g.drawImage(player_panel.getGame().getGameFrame().getLoadData().getListImage().get("boomRed"),
+                        0,0,getPreferredSize().width,getPreferredSize().height,null);
+                break;
+            case 10:
+                g.drawImage(player_panel.getGame().getGameFrame().getLoadData().getListImage().get("boomX"),
+                        0,0,getPreferredSize().width,getPreferredSize().height,null);
+                break;
+
+            case 11:
+                g.drawImage(player_panel.getGame().getGameFrame().getLoadData().getListImage().get("flag"),
                         0,0,getPreferredSize().width,getPreferredSize().height,null);
                 break;
         }
