@@ -39,8 +39,20 @@ public class World {
     }
 
     public boolean openAround(int i, int j){
+        int countFlag = 0;
         boolean openBoom = false;
-//
+
+        for (int l = i - 1; l <= i + 1; l++) {
+            for (int k = j - 1; k <= j + 1; k++) {
+                if (l >= 0 && l <= arrayMin.length - 1 && k >= 0 && k <= arrayMin[i].length - 1) {
+                    if(arrayFlag[l][k]){
+                        countFlag++;
+                    }
+                }
+            }
+        }
+        if(arrayMin[i][j] == countFlag) {
+
             for (int l = i - 1; l <= i + 1; l++) {
                 for (int k = j - 1; k <= j + 1; k++) {
                     if (l >= 0 && l <= arrayMin.length - 1 && k >= 0 && k <= arrayMin[i].length - 1) {
@@ -48,12 +60,11 @@ public class World {
                             if (arrayMin[l][k] == -1) {
 //                        openBoom = true;
 
-                                    arrayButton[l][k].setNumber(9);         //boomRed
-                                    arrayButton[l][k].repaint();
+                                arrayButton[l][k].setNumber(9);         //boomRed
+                                arrayButton[l][k].repaint();
 
-                                    arrayBoolean[l][k] = true;
-                                    openBoom = true;
-
+                                arrayBoolean[l][k] = true;
+                                openBoom = true;
 
 
                             } else {
@@ -69,27 +80,28 @@ public class World {
                 }
             }
 
-        if (openBoom) {
-            for(int i2 = 0; i2 < arrayButton.length ; i2++){
-                for (int j2 = 0; j2 < arrayButton[i2].length ;j2++){
-                    if(arrayMin[i2][j2] == -1 && !arrayBoolean[i2][j2]) {
-                        if(!arrayFlag[i2][j2]) {
-                            arrayButton[i2][j2].setNumber(-1);                  //boom
-                            arrayButton[i2][j2].repaint();
-                            arrayBoolean[i2][j2] = true;
-                        }else{
-                            arrayButton[i2][j2].setNumber(10);                  //boomX
-                            arrayButton[i2][j2].repaint();
-                            arrayBoolean[i2][j2] = true;
+            if (openBoom) {
+                for (int i2 = 0; i2 < arrayButton.length; i2++) {
+                    for (int j2 = 0; j2 < arrayButton[i2].length; j2++) {
+                        if (arrayMin[i2][j2] == -1 && !arrayBoolean[i2][j2]) {
+                            if (!arrayFlag[i2][j2]) {
+                                arrayButton[i2][j2].setNumber(-1);                  //boom
+                                arrayButton[i2][j2].repaint();
+                                arrayBoolean[i2][j2] = true;
+                            } else {
+                                arrayButton[i2][j2].setNumber(10);                  //boomX
+                                arrayButton[i2][j2].repaint();
+                                arrayBoolean[i2][j2] = true;
+                            }
                         }
                     }
                 }
+                return false;
+            } else {
+                return true;
             }
-            return false;
-        }else {
-            return true;
         }
-//        return true;
+        return true;
 
     }
 
