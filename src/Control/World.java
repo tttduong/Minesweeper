@@ -16,6 +16,7 @@ public class World {
     private LabelNumber label_time, label_boom;
     private int boom;
 
+
     public World(int w, int h, int boom) {
         this.boom = boom;
         arrayButton = new ButtonPlay[w][h];
@@ -37,6 +38,61 @@ public class World {
         }
     }
 
+    public boolean openAround(int i, int j){
+        boolean openBoom = false;
+//
+            for (int l = i - 1; l <= i + 1; l++) {
+                for (int k = j - 1; k <= j + 1; k++) {
+                    if (l >= 0 && l <= arrayMin.length - 1 && k >= 0 && k <= arrayMin[i].length - 1) {
+                        if (!arrayFlag[l][k]) {
+                            if (arrayMin[l][k] == -1) {
+//                        openBoom = true;
+
+                                    arrayButton[l][k].setNumber(9);         //boomRed
+                                    arrayButton[l][k].repaint();
+
+                                    arrayBoolean[l][k] = true;
+                                    openBoom = true;
+
+
+
+                            } else {
+                                arrayButton[l][k].setNumber(arrayMin[l][k]);
+                                arrayButton[l][k].repaint();
+                                arrayBoolean[l][k] = true;
+//                        openBoom = false;
+
+                            }
+                        }
+
+                    }
+                }
+            }
+
+        if (openBoom) {
+            for(int i2 = 0; i2 < arrayButton.length ; i2++){
+                for (int j2 = 0; j2 < arrayButton[i2].length ;j2++){
+                    if(arrayMin[i2][j2] == -1 && !arrayBoolean[i2][j2]) {
+                        if(!arrayFlag[i2][j2]) {
+                            arrayButton[i2][j2].setNumber(-1);                  //boom
+                            arrayButton[i2][j2].repaint();
+                            arrayBoolean[i2][j2] = true;
+                        }else{
+                            arrayButton[i2][j2].setNumber(10);                  //boomX
+                            arrayButton[i2][j2].repaint();
+                            arrayBoolean[i2][j2] = true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }else {
+            return true;
+        }
+//        return true;
+
+    }
+
     public boolean open(int i, int j){
 
             if (!arrayBoolean[i][j]) {                       //nếu arrayBoolean = false - ô chưa mở thì mở arrayBoolean
@@ -51,7 +107,7 @@ public class World {
                             for (int k = j - 1; k <= j + 1; k++) {
                                 if (l >= 0 && l <= arrayMin.length - 1 && k >= 0 && k <= arrayMin[i].length - 1) {
                                     if (!arrayBoolean[l][k]) {
-                                        open(l, k);
+                                            open(l, k);
                                     }
                                 }
                             }
@@ -69,7 +125,8 @@ public class World {
                     case -1:
                         arrayButton[i][j].setNumber(9);
                         arrayButton[i][j].repaint();
-                        isComplete = false;
+                        isComplete = false;                                 //xử thua game
+//                        isComplete = true;
 
                         for(int i2=0; i2< arrayButton.length; i2++){
                             for(int j2 = 0; j2<arrayButton[i2].length; j2++){
@@ -80,7 +137,8 @@ public class World {
                             }
                         }
 
-                        return false;
+                        return false;                                       //hỏi play again.
+
                     default:
                         arrayBoolean[i][j] = true;
 
@@ -98,6 +156,7 @@ public class World {
                             return true;                           //chơi tiếp
                         }
                 }
+
 
             }else {
                 if(isComplete == false) { //chưa win

@@ -76,7 +76,9 @@ public class GamePanel extends JPanel implements MouseListener {
                 if (e.getButton() == 1 && e.getSource() == arrayButton[i][j]){
 
                         if (!world.open(i, j)) {                  //nếu open = false. thì hiện thông báo
-                            if(!world.isComplete()) {           // chưa win
+
+                            if(!world.isComplete()) {           // chưa win (complete = false)
+
                                 int option = JOptionPane.showConfirmDialog(this, "You lost. Play again?", "Notification", JOptionPane.YES_NO_OPTION);
                                 if (option == JOptionPane.YES_OPTION) {
                                     gameFrame.setVisible(false);
@@ -86,7 +88,7 @@ public class GamePanel extends JPanel implements MouseListener {
                                     world.setComplete(true);
 
                                 }
-                            }else
+                            }else                               //win - complete = true
 //                                if(world.isEnd())
                                 {
                                 int option = JOptionPane.showConfirmDialog(this, "You Win. Play again?", "Notification", JOptionPane.YES_NO_OPTION);
@@ -98,8 +100,40 @@ public class GamePanel extends JPanel implements MouseListener {
                             }
                         }
 
-                }else if(e.getButton() == 3 && e.getSource() == arrayButton[i][j]){
+                }
+                if(e.getButton() == 3 && e.getSource() == arrayButton[i][j]){
                     world.flagUp(i,j);
+
+                }
+
+                if(e.getClickCount() == 2 && e.getSource() == arrayButton[i][j]){
+                    System.out.println(i+"   "+j);
+
+
+                    if (!world.openAround(i, j)) {                  //nếu openaround = false. thì hiện thông báo
+                        System.out.println("openAround = "+ world.openAround(i, j)+ "; isComplete = "+world.isComplete());
+                        if(!world.isComplete()) {           // chưa win (complete = false)
+
+                            int option = JOptionPane.showConfirmDialog(this, "You lost. Play again?", "Notification", JOptionPane.YES_NO_OPTION);
+                            if (option == JOptionPane.YES_OPTION) {
+                                gameFrame.setVisible(false);
+                                new GameFrame(w, h, boom);
+                            } else {                               // nếu không chọn chơi lại thì arrayBoolean = full true ->
+                                world.fullTrue();
+                                world.setComplete(true);
+
+                            }
+                        }else                               //win - complete = true
+//                                if(world.isEnd())
+                        {
+                            int option = JOptionPane.showConfirmDialog(this, "You Win. Play again?", "Notification", JOptionPane.YES_NO_OPTION);
+                            if (option == JOptionPane.YES_OPTION) {
+                                gameFrame.setVisible(false);
+                                new GameFrame(w, h, boom);
+                            }
+
+                        }
+                    }
                 }
             }
         }
