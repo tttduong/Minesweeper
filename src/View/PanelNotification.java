@@ -35,5 +35,31 @@ public class PanelNotification extends JPanel {
         p13.add(label_time = new LabelNumber(this, "000"));
 
     }
+    public void updateLabelBoom(){
+        int num_boom = game.getWorld().getBoom() - game.getWorld().getFlag();
+        String boom = String.valueOf(num_boom);
+
+        label_boom.setNumber(boom);
+
+        label_boom.repaint();
+
+    }
+    public void resetLabelBoom(){
+        int num_boom = game.getWorld().getBoom();
+        String boom = String.valueOf(num_boom);
+
+        label_boom.setNumber(boom);
+
+        label_boom.repaint();
+
+    }
+    public int getFlag() {
+        return game.getWorld().getFlag();
+    }
+
+    public void setFlag(int flag) {
+        game.getWorld().setFlag(flag);
+
+    }
 
 }

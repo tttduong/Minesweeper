@@ -7,17 +7,65 @@ import java.util.Random;
 
 public class World {
     private ButtonPlay[][] arrayButton;
+
+    public int[][] getArrayMin() {
+        return arrayMin;
+    }
+
+    public void setArrayMin(int[][] arrayMin) {
+        this.arrayMin = arrayMin;
+    }
+
     private int[][] arrayMin;
+
+    public boolean[][] getArrayBoolean() {
+        return arrayBoolean;
+    }
+
+    public void setArrayBoolean(boolean[][] arrayBoolean) {
+        this.arrayBoolean = arrayBoolean;
+    }
+
     private boolean[][] arrayBoolean;
+
+    public boolean[][] getArrayFlag() {
+        return arrayFlag;
+    }
+
+    public void setArrayFlag(boolean[][] arrayFlag) {
+        this.arrayFlag = arrayFlag;
+    }
+
     private boolean[][] arrayFlag;
     private boolean isComplete;         //true khi game kết thúc (thắng hoặc thua)
     private Random rd;
     private ButtonSmile buttonSmile;
     private LabelNumber label_time, label_boom;
+    private int flag;
+
     private int boom;
 
 
+    public int getBoom() {
+        return boom;
+    }
+
+    public void setBoom(int boom) {
+        this.boom = boom;
+    }
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
+    public int getFlag() {
+        return flag;
+    }
+
+
+
+
     public World(int w, int h, int boom) {
+        this.flag = 0;
         this.boom = boom;
         arrayButton = new ButtonPlay[w][h];
         arrayMin = new int[w][h];
@@ -39,19 +87,19 @@ public class World {
     }
 
     public boolean openAround(int i, int j){
-        int countFlag = 0;
-        boolean openBoom = false;
 
+        boolean openBoom = false;
+//đếm số mìn xung quanh
         for (int l = i - 1; l <= i + 1; l++) {
             for (int k = j - 1; k <= j + 1; k++) {
                 if (l >= 0 && l <= arrayMin.length - 1 && k >= 0 && k <= arrayMin[i].length - 1) {
                     if(arrayFlag[l][k]){
-                        countFlag++;
+                        flag++;
                     }
                 }
             }
         }
-        if(arrayMin[i][j] == countFlag) {
+        if(arrayMin[i][j] == flag) {
 
             for (int l = i - 1; l <= i + 1; l++) {
                 for (int k = j - 1; k <= j + 1; k++) {
@@ -96,8 +144,18 @@ public class World {
                         }
                     }
                 }
+
                 return false;
             } else {
+//                for (int l = i - 1; l <= i + 1; l++) {
+//                    for (int k = j - 1; k <= j + 1; k++) {
+//                        if (l >= 0 && l <= arrayMin.length - 1 && k >= 0 && k <= arrayMin[i].length - 1) {
+//                            if((!arrayBoolean[l][k]) && (!arrayFlag[l][k]) &&(arrayMin[l][k] != -1)){
+//                                open(l, k);
+//                            }
+//                        }
+//                    }
+//                }
                 return true;
             }
         }
@@ -124,6 +182,21 @@ public class World {
                                 }
                             }
                         }
+
+                        //update num of flag
+                        int countFlag = 0;
+                        for (int l = i - 1; l <= i + 1; l++) {
+                            for (int k = j - 1; k <= j + 1; k++) {
+                                if (l >= 0 && l <= arrayFlag.length - 1 && k >= 0 && k <= arrayFlag[i].length - 1) {
+                                    if (arrayFlag[l][k]) {
+                                        countFlag++;
+                                    }
+                                }
+                            }
+                        }
+                        flag = countFlag;
+
+                        ///////////////////
 
                         if (checkWin()) {
                             isComplete = true;                      // true khi Win
@@ -185,14 +258,28 @@ public void flagUp(int i, int j){
                 arrayFlag[i][j] = false;
                 arrayButton[i][j].setNumber(-2);
                 arrayButton[i][j].repaint();
+                flag--;
             }else {
                 arrayFlag[i][j] = true;
                 arrayButton[i][j].setNumber(11);
                 arrayButton[i][j].repaint();
+                flag++;
 
             }
         }
 }
+
+    public void flagDown(int i, int j){
+
+                arrayFlag[i][j] = false;
+                arrayButton[i][j].setNumber(-2);
+                flag--;
+                arrayButton[i][j].repaint();
+
+
+
+
+    }
     public boolean checkWin(){
         int count =0;
         for (int i =0; i <arrayBoolean.length; i++){

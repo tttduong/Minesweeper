@@ -16,6 +16,8 @@ public class GamePanel extends JPanel implements MouseListener {
     private World world;
     private int w;
     private int h;
+
+
     private int boom;
     private GameFrame gameFrame;
 //    private JButton[][] arrayButton;
@@ -30,7 +32,7 @@ public class GamePanel extends JPanel implements MouseListener {
         setLayout(new BorderLayout(10,10));
         add(p1 = new PanelNotification(this), BorderLayout.NORTH);
         add(p2 = new PanelPlayer(this), BorderLayout.CENTER);
-
+        p1.updateLabelBoom();
 
     }
 
@@ -74,11 +76,12 @@ public class GamePanel extends JPanel implements MouseListener {
             for(int j =0; j < arrayButton[i].length ; j++){
 
                 if (e.getButton() == 1 && e.getSource() == arrayButton[i][j]){
-
+                    if(!world.getArrayFlag()[i][j]){                 //nếu ko có ờ thì mở ô
                         if (!world.open(i, j)) {                  //nếu open = false. thì hiện thông báo
 
                             if(!world.isComplete()) {           // chưa win (complete = false)
-
+//                                p1.resetLabelBoom();
+//                                System.out.println("reset label boom");
                                 int option = JOptionPane.showConfirmDialog(this, "You lost. Play again?", "Notification", JOptionPane.YES_NO_OPTION);
                                 if (option == JOptionPane.YES_OPTION) {
                                     gameFrame.setVisible(false);
@@ -90,7 +93,9 @@ public class GamePanel extends JPanel implements MouseListener {
                                 }
                             }else                               //win - complete = true
 //                                if(world.isEnd())
-                                {
+                            {
+//                                p1.resetLabelBoom();
+//                                System.out.println("reset label boom");
                                 int option = JOptionPane.showConfirmDialog(this, "You Win. Play again?", "Notification", JOptionPane.YES_NO_OPTION);
                                 if (option == JOptionPane.YES_OPTION) {
                                     gameFrame.setVisible(false);
@@ -98,22 +103,60 @@ public class GamePanel extends JPanel implements MouseListener {
                                 }
 
                             }
+                        }else {
+//                            p1.setFlag(world.getFlag());
+//                            p1.updateLabelBoom();
                         }
+                    }else{
+                        world.flagDown(i,j);
+                        p1.updateLabelBoom();
+
+                    }
+
+
 
                 }
                 if(e.getButton() == 3 && e.getSource() == arrayButton[i][j]){
-                    world.flagUp(i,j);
+                    if(world.getFlag() < world.getBoom()){
+                        world.flagUp(i,j);
+//                        world.setFlag(world.getFlag()+1);
+                        p1.updateLabelBoom();
+                    }
 
                 }
 
                 if(e.getClickCount() == 2 && e.getSource() == arrayButton[i][j]){
                     System.out.println(i+"   "+j);
 
+                    if(world.openAround(i, j)) {
+                        System.out.println("openAround = "+ world.openAround(i, j)+ "; isComplete = "+world.isComplete());
+                        boolean open = true;
+                        for (int l = i - 1; l <= i + 1; l++) {
+                            for (int k = j - 1; k <= j + 1; k++) {
+                                if (l >= 0 && l <= world.getArrayMin().length - 1 && k >= 0 && k <= world.getArrayMin()[i].length - 1) {
+                                    if((!world.getArrayBoolean()[l][k]) && (!world.getArrayFlag()[l][k])){
+                                        if(!world.open(l, k)){
+                                            open = false;
+                                        }
 
-                    if (!world.openAround(i, j)) {                  //nếu openaround = false. thì hiện thông báo
+                                    }
+                                }
+                            }
+                        }
+//                        if(!open){
+//                            p1.resetLabelBoom();
+//                            System.out.println("reset label boom");
+//                        }
+
+
+                    }
+
+
+                    if ((!world.openAround(i, j)) || (!world.open(i,j))) {                  //nếu openaround = false. thì hiện thông báo
                         System.out.println("openAround = "+ world.openAround(i, j)+ "; isComplete = "+world.isComplete());
                         if(!world.isComplete()) {           // chưa win (complete = false)
-
+//                            p1.resetLabelBoom();
+//                            System.out.println("reset label boom");
                             int option = JOptionPane.showConfirmDialog(this, "You lost. Play again?", "Notification", JOptionPane.YES_NO_OPTION);
                             if (option == JOptionPane.YES_OPTION) {
                                 gameFrame.setVisible(false);
@@ -126,6 +169,8 @@ public class GamePanel extends JPanel implements MouseListener {
                         }else                               //win - complete = true
 //                                if(world.isEnd())
                         {
+//                            p1.resetLabelBoom();
+//                            System.out.println("reset label boom");
                             int option = JOptionPane.showConfirmDialog(this, "You Win. Play again?", "Notification", JOptionPane.YES_NO_OPTION);
                             if (option == JOptionPane.YES_OPTION) {
                                 gameFrame.setVisible(false);
@@ -134,6 +179,8 @@ public class GamePanel extends JPanel implements MouseListener {
 
                         }
                     }
+
+
                 }
             }
         }
