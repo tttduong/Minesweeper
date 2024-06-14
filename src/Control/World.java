@@ -61,7 +61,14 @@ public class World {
         return flag;
     }
 
-
+    public World(ButtonPlay[][] arrayButton, int[][] arrayMin, boolean[][] arrayBoolean, boolean[][] arrayFlag,int flag, int boom ){
+        this.arrayButton = arrayButton;
+        this.arrayBoolean = arrayBoolean;
+        this.arrayFlag = arrayFlag;
+        this.arrayMin = arrayMin;
+        this.flag = flag;
+        this.boom = boom;
+    }
 
 
     public World(int w, int h, int boom) {
@@ -86,10 +93,35 @@ public class World {
         }
     }
 
+
+    public World deepCopy() {
+        boolean[][] newArrayBoolean = new boolean[arrayBoolean.length][];
+        for (int i = 0; i < arrayBoolean.length; i++) {
+            newArrayBoolean[i] = arrayBoolean[i].clone();
+        }
+
+        ButtonPlay[][] newArrayButton = new ButtonPlay[arrayButton.length][];
+        for (int i = 0; i < arrayButton.length; i++) {
+            newArrayButton[i] = arrayButton[i].clone();
+        }
+
+        int[][] newArrayMin = new int[arrayMin.length][];
+        for (int i = 0; i < arrayMin.length; i++) {
+            newArrayMin[i] = arrayMin[i].clone();
+        }
+
+        boolean[][] newArrayFlag = new boolean[arrayFlag.length][];
+        for (int i = 0; i < arrayFlag.length; i++) {
+            newArrayFlag[i] = arrayFlag[i].clone();
+        }
+
+        return new World(newArrayButton, newArrayMin, newArrayBoolean, newArrayFlag, flag, boom);
+    }
+
     public boolean openAround(int i, int j){
 
         boolean openBoom = false;
-//đếm số mìn xung quanh
+//đếm số cờ xung quanh
         for (int l = i - 1; l <= i + 1; l++) {
             for (int k = j - 1; k <= j + 1; k++) {
                 if (l >= 0 && l <= arrayMin.length - 1 && k >= 0 && k <= arrayMin[i].length - 1) {

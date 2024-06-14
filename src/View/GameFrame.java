@@ -19,6 +19,23 @@ public class GameFrame extends JFrame {
     public GameFrame (int w,int h,int boom){
         loadData = new LoadData();
 
+        JMenuBar menuBar = new JMenuBar() ;
+        JMenu homeMenu = new JMenu("Home");
+        JMenuItem undoItem = new JMenuItem("Undo");
+        JMenuItem saveItem = new JMenuItem("Save");
+
+        homeMenu.add(undoItem);
+        menuBar.add(homeMenu);
+        homeMenu.addSeparator();
+        homeMenu.add(saveItem);
+
+
+        undoItem.addActionListener(e -> gamePanel.undo());
+
+
+        setJMenuBar(menuBar);
+
+
         add(gamePanel= new GamePanel(w,h,boom, this));
         setResizable(false);
         setIconImage(loadData.getListImage().get("title"));
