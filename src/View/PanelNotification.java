@@ -8,6 +8,15 @@ public class PanelNotification extends JPanel {
     private JPanel p11,p12, p13 ;
 
     private LabelNumber label_time, label_boom;
+
+    public ButtonSmile getBtSmile() {
+        return btSmile;
+    }
+
+    public void setBtSmile(ButtonSmile btSmile) {
+        this.btSmile = btSmile;
+    }
+
     private ButtonSmile btSmile;
 
     public GamePanel getGame() {
@@ -34,9 +43,25 @@ public class PanelNotification extends JPanel {
         p12.add(btSmile = new ButtonSmile(this));
         p13.add(label_time = new LabelNumber(this, "000"));
 
+        btSmile.addMouseListener(game);
+
     }
     public void updateLabelBoom(){
-        int num_boom = game.getWorld().getBoom() - game.getWorld().getFlag();
+        boolean[][] currentArrayFlag = new boolean[game.getWorld().getArrayFlag().length][];
+        for (int i = 0; i < currentArrayFlag.length; i++) {
+            currentArrayFlag[i] = game.getWorld().getArrayFlag()[i].clone();
+        }
+
+        int flag = 0;
+        for (int i = 0; i < currentArrayFlag.length; i++) {
+            for (int j = 0; j < currentArrayFlag[i].length; j++) {
+                if (currentArrayFlag[i][j]){
+                flag++;
+                }
+            }
+        }
+
+        int num_boom = game.getWorld().getBoom() - flag ;
         String boom = String.valueOf(num_boom);
 
         label_boom.setNumber(boom);
