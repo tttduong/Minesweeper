@@ -1,3 +1,8 @@
+/*
+Name: Tạ Thị Thùy Dương
+IU Code: ITCSIU21053
+Purpose: contains ButtonPlay objects and references GamePanel.
+*/
 package View;
 
 import javax.swing.*;

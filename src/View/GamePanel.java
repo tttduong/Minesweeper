@@ -1,3 +1,9 @@
+/*
+Name: Tạ Thị Thùy Dương
+IU Code: ITCSIU21053
+Purpose: Handles user interactions and game state updates.
+*/
+
 package View;
 
 import Control.World;
@@ -86,9 +92,9 @@ private World worldTemp;
         if (ver.size() > 2) { // Ensure there's a previous state to undo to
             ver.pop(); // Remove the current state
             worldTemp = ver.peek().deepCopy();
-            System.out.println("\nPop world");
-            System.out.println("ver = "+ver+ "  ver.peek() = "+ver.peek());
-            System.out.println("ver.peek() = "+Arrays.deepToString(ver.peek().getArrayBoolean()));
+//            System.out.println("\nPop world");
+//            System.out.println("ver = "+ver+ "  ver.peek() = "+ver.peek());
+//            System.out.println("ver.peek() = "+Arrays.deepToString(ver.peek().getArrayBoolean()));
 
             updateUIFromWorld();
         }
@@ -99,11 +105,11 @@ private World worldTemp;
     public void pushVer(World w) {
         World newWorld = w.deepCopy();
         worldTemp = ver.peek().deepCopy();
-        System.out.println("\nPush world");
+//        System.out.println("\nPush world");
         ver.push(newWorld);
-        System.out.println("ver = " + ver);
-        System.out.println("ver.peek().getArrayBoolean()");
-        System.out.print(Arrays.deepToString(ver.peek().getArrayBoolean()));
+//        System.out.println("ver = " + ver);
+//        System.out.println("ver.peek().getArrayBoolean()");
+//        System.out.print(Arrays.deepToString(ver.peek().getArrayBoolean()));
 
     }
 
@@ -207,7 +213,7 @@ private World worldTemp;
                         if (world.openAround(i, j)) {
 
 
-                            System.out.println("openAround = " + world.openAround(i, j) + "; isComplete = " + world.isComplete());
+//                            System.out.println("openAround = " + world.openAround(i, j) + "; isComplete = " + world.isComplete());
                             boolean open = true;
                             for (int l = i - 1; l <= i + 1; l++) {
                                 for (int k = j - 1; k <= j + 1; k++) {
@@ -217,7 +223,7 @@ private World worldTemp;
                                                 open = false;
                                                 world.getArrayFlag()[l][k] = false;
                                                 p1.resetLabelBoom();
-                                                System.out.println("reset label boom");
+//                                                System.out.println("reset label boom");
 
                                                 if (!world.isComplete()) {           // chưa win (complete = false)
 

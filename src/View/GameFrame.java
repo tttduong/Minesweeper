@@ -1,3 +1,8 @@
+/*
+Name: Tạ Thị Thùy Dương
+IU Code: ITCSIU21053
+Purpose: Manages the main window and UI.
+*/
 package View;
 
 import Model.LoadData;

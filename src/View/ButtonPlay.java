@@ -1,3 +1,9 @@
+/*
+Name: Tạ Thị Thùy Dương
+IU Code: ITCSIU21053
+Purpose: manages game button graphics and state.
+*/
+
 package View;
 
 import javax.swing.*;

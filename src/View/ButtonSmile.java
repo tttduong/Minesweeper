@@ -1,3 +1,9 @@
+/*
+Name: Tạ Thị Thùy Dương
+IU Code: ITCSIU21053
+Purpose: handles the smiley face button.
+*/
+
 package View;
 
 import javax.swing.*;

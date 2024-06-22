@@ -1,3 +1,12 @@
+/*
+Name: Tạ Thị Thùy Dương
+IU Code: ITCSIU21053
+Purpose: Run program
+*/
+
+
+
+
 package View;
 
 public class Main {

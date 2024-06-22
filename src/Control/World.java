@@ -1,3 +1,9 @@
+/*
+Name: Tạ Thị Thùy Dương
+IU Code: ITCSIU21053
+Purpose: Manages game logic and state (openAround(int, int), checkWin(), arrayButton).
+*/
+
 package Control;
 
 import View.*;
@@ -83,7 +89,7 @@ public class World {
 
         createArrayMin(boom, w, h);
         fillNumber();
-
+        System.out.print("\n");
         for(int i=0; i<arrayMin.length; i++){
             for(int j = 0; j<arrayMin[i].length; j++){
                 System.out.print(arrayMin[i][j]);

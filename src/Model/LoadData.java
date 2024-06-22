@@ -1,3 +1,9 @@
+/*
+Name: Tạ Thị Thùy Dương
+IU Code: ITCSIU21053
+Purpose: Stores game images.
+*/
+
 package Model;
 
 import javax.imageio.ImageIO;

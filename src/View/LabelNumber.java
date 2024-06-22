@@ -1,3 +1,9 @@
+/*
+Name: Tạ Thị Thùy Dương
+IU Code: ITCSIU21053
+Purpose: displays mine counts and time.
+*/
+
 package View;
 
 import javax.swing.*;

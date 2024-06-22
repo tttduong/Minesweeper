@@ -1,3 +1,9 @@
+/*
+Name: Tạ Thị Thùy Dương
+IU Code: ITCSIU21053
+Purpose: updates and resets mine counts, interacts with ButtonSmile and GamePanel.
+*/
+
 package View;
 
 import javax.swing.*;
